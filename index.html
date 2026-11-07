@@ -1,0 +1,123 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Happy Birthday Dinesh 🎂</title>
+<style>
+*{box-sizing:border-box}
+body{
+ margin:0;text-align:center;font-family:Arial,sans-serif;
+ background:linear-gradient(135deg,#ffe1ed,#e9ddff,#d9fff1);
+ color:#594477;min-height:100vh;
+}
+header{padding:55px 18px 35px}
+.gift{font-size:85px;animation:float 2s infinite}
+@keyframes float{50%{transform:translateY(-13px)}}
+h1{font-size:clamp(38px,9vw,65px);margin:15px 0;color:#805fc0}
+h1 span{color:#ff659b}
+p{line-height:1.7}
+button{
+ border:0;border-radius:30px;padding:14px 22px;
+ font-size:16px;font-weight:bold;cursor:pointer;
+ background:linear-gradient(90deg,#ff72a7,#9674ec);
+ color:white;margin:8px;
+}
+section{
+ background:#ffffffd9;border-radius:24px;
+ padding:25px 15px;margin:25px auto;
+ width:92%;max-width:750px;
+}
+.hidden{display:none}
+.photos{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.photos img{width:100%;border-radius:16px}
+.photo-card{background:white;padding:9px;border-radius:15px}
+.cake{font-size:100px}
+#message{font-size:18px;line-height:1.8}
+footer{padding:30px}
+.confetti{
+ position:fixed;top:-15px;width:10px;height:14px;
+ animation:fall 3s linear forwards;pointer-events:none
+}
+@keyframes fall{to{transform:translateY(110vh) rotate(700deg)}}
+@media(max-width:500px){.photos{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<header>
+<div class="gift">🎁</div>
+<p>A SPECIAL SURPRISE FOR MY BEST FRIEND</p>
+<h1>Happy Birthday,<br><span>Dinesh!</span></h1>
+<p>Today is your day! Get ready for a little surprise full of memories, laughter and happiness. ❤️</p>
+<button onclick="openSurprise()">OPEN YOUR SURPRISE 💌</button>
+</header>
+
+<section id="memories" class="hidden">
+<h2>📸 Beautiful Memories</h2>
+<p>Some moments are too special to forget!</p>
+<div class="photos">
+<div class="photo-card">
+<img src="memory-1.jpeg" alt="Memory 1">
+<p>One for the memories ✨</p>
+</div>
+<div class="photo-card">
+<img src="memory-2.jpeg" alt="Memory 2">
+<p>Keep smiling! 💖</p>
+</div>
+</div>
+</section>
+
+<section id="note" class="hidden">
+<h2>💌 A Message For You</h2>
+<div id="message">
+Happy Birthday, Dinesh! 🥳<br>
+Wishing you endless happiness, success, laughter and unforgettable adventures.<br>
+Thank you for being an amazing friend.<br>
+Keep shining and never stop chasing your dreams! ❤️
+</div>
+</section>
+
+<section id="cakeSection" class="hidden">
+<h2>🎂 Make a Birthday Wish!</h2>
+<div class="cake" id="cake">🎂</div>
+<button onclick="blow()">🕯️ Blow the candles</button>
+<button onclick="cutCake()">🔪 Cut the cake</button>
+<p id="cakeMessage"></p>
+</section>
+
+<footer>Made with friendship and lots of love 💗</footer>
+
+<script>
+function openSurprise(){
+ document.getElementById("memories").classList.remove("hidden");
+ document.getElementById("note").classList.remove("hidden");
+ document.getElementById("cakeSection").classList.remove("hidden");
+ confetti(100);
+ document.getElementById("memories").scrollIntoView({behavior:"smooth"});
+}
+function confetti(n){
+ const colors=["#ff72a7","#9674ec","#ffd86b","#70d9bd"];
+ for(let i=0;i<n;i++){
+  let e=document.createElement("i");
+  e.className="confetti";
+  e.style.left=Math.random()*100+"vw";
+  e.style.background=colors[Math.floor(Math.random()*colors.length)];
+  e.style.animationDuration=(2+Math.random()*3)+"s";
+  document.body.appendChild(e);
+  setTimeout(()=>e.remove(),5500);
+ }
+}
+function blow(){
+ document.getElementById("cakeMessage").innerText="✨ Make a wish, Dinesh! May it come true! ✨";
+ confetti(50);
+}
+function cutCake(){
+ document.getElementById("cake").innerText="🍰";
+ document.getElementById("cakeMessage").innerText="Cake for everyone! Happy Birthday! 🎉";
+ confetti(100);
+}
+</script>
+</body>
+</html>
