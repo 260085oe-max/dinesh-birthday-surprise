@@ -2,405 +2,58 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Birthday Surprise 🎂</title>
-
-<style>
-*{box-sizing:border-box}
-body{
-  margin:0;
-  font-family:Arial,sans-serif;
-  color:white;
-  text-align:center;
-  background:linear-gradient(135deg,#120d2b,#31134b,#102b50);
-  min-height:100vh;
-  overflow-x:hidden;
-}
-.page{
-  display:none;
-  min-height:100vh;
-  padding:45px 18px;
-  align-items:center;
-  justify-content:center;
-  flex-direction:column;
-}
-.page.active{display:flex}
-h1{font-size:clamp(30px,8vw,48px);margin:10px}
-p{line-height:1.7}
-button{
-  border:0;
-  border-radius:30px;
-  padding:15px 25px;
-  margin:12px;
-  font-size:16px;
-  font-weight:bold;
-  color:#31134b;
-  background:linear-gradient(135deg,#ffe08a,#ff9fc8);
-  box-shadow:0 5px 20px #0005;
-  cursor:pointer;
-}
-button:active{transform:scale(.96)}
-.small{color:#f7d9ff;font-size:15px}
-#fireworks{
-  position:fixed;
-  inset:0;
-  width:100%;
-  height:100%;
-  pointer-events:none;
-  z-index:5;
-}
-#fireText{z-index:6}
-#continueFire{z-index:7;position:relative}
-
-/* CAKE */
-.cake-stage{
-  position:relative;
-  width:min(340px,90vw);
-  height:300px;
-  margin:20px auto 5px;
-}
-.plate{
-  position:absolute;
-  bottom:12px;
-  left:3%;
-  width:94%;
-  height:23px;
-  border-radius:50%;
-  background:linear-gradient(#fff,#c9d9ec);
-  box-shadow:0 8px 15px #0007;
-}
-.cake{
-  position:absolute;
-  bottom:30px;
-  left:10%;
-  width:80%;
-  height:180px;
-  transition:transform 1s;
-}
-.bottom-layer{
-  position:absolute;
-  bottom:0;
-  width:100%;
-  height:83px;
-  border-radius:12px 12px 22px 22px;
-  background:linear-gradient(90deg,#8d3150,#f28b9d 35%,#b84b68 70%,#702440);
-  box-shadow:inset 0 -12px 15px #581c39;
-}
-.middle-layer{
-  position:absolute;
-  bottom:65px;
-  left:7%;
-  width:86%;
-  height:65px;
-  border-radius:12px 12px 15px 15px;
-  background:linear-gradient(90deg,#f4b5cb,#fff0e7 40%,#e98eae);
-  box-shadow:inset 0 -8px 10px #c66c91;
-}
-.top-icing{
-  position:absolute;
-  bottom:116px;
-  left:7%;
-  width:86%;
-  height:28px;
-  border-radius:50% 50% 8px 8px;
-  background:linear-gradient(#fff8ed,#f5c5d8);
-  box-shadow:0 5px 7px #9e496a;
-}
-.drip{
-  position:absolute;
-  bottom:103px;
-  left:15%;
-  width:13px;
-  height:25px;
-  background:#fff0e7;
-  border-radius:0 0 9px 9px;
-}
-.drip.d2{left:42%;height:18px}
-.drip.d3{left:70%;height:24px}
-.cherry{
-  position:absolute;
-  bottom:135px;
-  width:17px;height:17px;
-  background:radial-gradient(circle at 30% 25%,#ffb2a7,#c90043 65%);
-  border-radius:50%;
-  box-shadow:inset -3px -3px 4px #73002c;
-}
-.ch1{left:23%}.ch2{left:47%;bottom:141px}.ch3{left:72%}
-.candle{
-  position:absolute;
-  bottom:140px;
-  width:13px;
-  height:43px;
-  border-radius:4px;
-  background:repeating-linear-gradient(135deg,#fff 0 6px,#ff75a6 6px 12px);
-  box-shadow:1px 2px 5px #522;
-}
-.c1{left:28%}.c2{left:48%;height:53px}.c3{left:68%}
-.flame{
-  position:absolute;
-  bottom:181px;
-  left:calc(28% + 1px);
-  width:11px;
-  height:19px;
-  background:radial-gradient(ellipse at 50% 70%,#fff8a0 5%,#ffb323 50%,#ff5c00 80%);
-  border-radius:50% 50% 45% 45%;
-  animation:flicker .45s infinite alternate;
-  filter:drop-shadow(0 0 9px #ffae00);
-}
-.f2{left:calc(48% + 1px);bottom:191px}
-.f3{left:calc(68% + 1px)}
-@keyframes flicker{
-  from{transform:scale(.9) rotate(-5deg)}
-  to{transform:scale(1.12) rotate(5deg)}
-}
-.smoke{
-  position:absolute;
-  width:12px;height:25px;
-  border-radius:50%;
-  background:#ddd9;
-  filter:blur(5px);
-  animation:smokeUp 1.5s forwards;
-}
-@keyframes smokeUp{
-  to{transform:translateY(-55px) scale(2);opacity:0}
-}
-.knife{
-  position:absolute;
-  width:7px;height:125px;
-  background:linear-gradient(90deg,#aaa,#fff,#777);
-  border-radius:4px;
-  top:5px;left:72%;
-  transform:rotate(35deg) translateY(-220px);
-  opacity:0;
-}
-.cut .knife{
-  opacity:1;
-  animation:knifeCut 1.3s forwards;
-}
-@keyframes knifeCut{
-  0%{transform:rotate(35deg) translateY(-220px)}
-  65%{transform:rotate(35deg) translateY(40px)}
-  100%{transform:rotate(35deg) translateY(15px)}
-}
-.slice{
-  position:absolute;
-  right:7%;
-  bottom:33px;
-  width:75px;height:65px;
-  background:linear-gradient(135deg,#ffd1dc,#e9789b);
-  clip-path:polygon(0 0,100% 35%,100% 100%,0 100%);
-  opacity:0;
-}
-.cut .slice{
-  opacity:1;
-  animation:sliceMove 1.5s 1s forwards;
-}
-@keyframes sliceMove{
-  to{transform:translate(45px,-15px) rotate(12deg)}
-}
-
-/* PHOTO GALLERY */
-.gallery{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:12px;
-  width:min(520px,100%);
-  margin:20px auto;
-}
-.gallery img{
-  width:100%;
-  height:220px;
-  object-fit:cover;
-  border-radius:17px;
-  border:3px solid #ffe3a8;
-  box-shadow:0 8px 25px #0007;
-}
-.wish{
-  max-width:520px;
-  padding:20px;
-  border:1px solid #ffffff55;
-  background:#ffffff15;
-  border-radius:18px;
-  font-size:16px;
-}
-#finalPage h1{color:#ffe29b}
-.heart{color:#ff8eb5;font-size:25px}
-@media(max-width:380px){
-  .gallery img{height:170px}
-}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Birthday Ranjana!</title>
+  <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
-<canvas id="fireworks"></canvas>
+  <div class="hearts">💖 ✨ 💗 🌸 💕</div>
 
-<!-- PAGE 1: START -->
-<section class="page active" id="startPage">
-  <div style="font-size:65px">🎁</div>
-  <h1>A Special Surprise!</h1>
-  <p class="small">Something special is waiting for you...</p>
-  <button onclick="startCelebration()">OPEN THE SURPRISE ✨</button>
-</section>
+  <section class="hero" id="home">
+    <h1>Hey Ranjana! 💗</h1>
+    <p>Someone has a special surprise for you...</p>
+    <button onclick="openSurprise()">OPEN YOUR SURPRISE 🎁</button>
+    <img src="images/ranjana-1.jpg" alt="Ranjana" class="photo">
+  </section>
 
-<!-- PAGE 2: FIREWORKS -->
-<section class="page" id="firePage">
-  <div id="fireText">
-    <h1>🎆 HAPPY BIRTHDAY! 🎆</h1>
-    <p>A celebration just for you!</p>
-    <button id="continueFire" onclick="showPage('cakePage')" style="display:none">
-      LET'S SEE THE CAKE 🎂
-    </button>
-  </div>
-</section>
+  <section class="message hidden" id="birthday">
+    <h1>Happy Birthday! 🎂</h1>
+    <h2>Dear Ranjana ❤️</h2>
+    <p>
+      Today is all about you!
+      May your life always be filled with happiness,
+      laughter, love and beautiful memories.
+    </p>
+    <p>
+      Keep smiling, keep shining, and never stop being you. 🌷
+    </p>
 
-<!-- PAGE 3: BLOW CANDLES -->
-<section class="page" id="cakePage">
-  <h1>Make a Wish! 🎂</h1>
-  <p class="small">Close your eyes and make a birthday wish.</p>
-
-  <div class="cake-stage" id="cakeStage">
-    <div class="plate"></div>
-    <div class="cake" id="cake">
-      <div class="bottom-layer"></div>
-      <div class="middle-layer"></div>
-      <div class="top-icing"></div>
-      <div class="drip"></div><div class="drip d2"></div><div class="drip d3"></div>
-      <div class="cherry ch1"></div><div class="cherry ch2"></div><div class="cherry ch3"></div>
-      <div class="candle c1"></div>
-      <div class="candle c2"></div>
-      <div class="candle c3"></div>
-      <div class="flame"></div>
-      <div class="flame f2"></div>
-      <div class="flame f3"></div>
+    <div class="cake" onclick="blowCandles()">
+      🎂
+      <p>Tap the cake to blow out the candles!</p>
     </div>
-    <div class="knife"></div>
-    <div class="slice"></div>
-  </div>
+    <p id="cakeMessage"></p>
+  </section>
 
-  <button id="blowButton" onclick="blowCandles()">🌬️ BLOW OUT CANDLES</button>
-  <button id="cutButton" onclick="cutCake()" style="display:none">🔪 CUT THE CAKE</button>
-  <button id="openFinal" onclick="showPage('finalPage')" style="display:none">🎁 OPEN FINAL SURPRISE</button>
-</section>
+  <section class="memory hidden" id="memory">
+    <h1>A Little Memory 💕</h1>
+    <p>Some people make ordinary days special.</p>
+    <img src="images/ranjana-2.jpg" alt="A special memory" class="photo">
+    <p>And you are one of those people! 🌸</p>
+  </section>
 
-<!-- PAGE 4: FINAL SURPRISE -->
-<section class="page" id="finalPage">
-  <div style="font-size:55px">🎉💖🎂</div>
-  <h1>Happy Birthday!</h1>
-  <p class="small">Two memories, one special celebration.</p>
+  <section class="last hidden" id="last">
+    <h1>WAIT! 😍</h1>
+    <h2>There's one more surprise!</h2>
+    <p>Something special is waiting for you...</p>
+    <div id="timer">03:00</div>
+    <h2 id="finalMessage" class="hidden">
+      HAPPY BIRTHDAY, RANJANA! ❤️🎉
+    </h2>
+  </section>
 
-  <div class="gallery">
-    <img src="memory-1.jpeg..jpg" alt="Birthday memory 1">
-    <img src="memory-1.jpeg.jpg" alt="Birthday memory 2">
-  </div>
-
-  <div class="wish">
-    Wishing you a birthday filled with happiness, laughter, and unforgettable memories.
-    May this new year bring you success, good health, and everything your heart wishes for.
-    Keep smiling and enjoy your special day! ❤️
-  </div>
-
-  <p class="heart">Made with ❤️</p>
-  <p class="small">Thank you for being part of this special moment!</p>
-</section>
-
-<script>
-// PAGE CONTROL
-function showPage(id){
-  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-}
-
-// FIREWORKS
-const canvas=document.getElementById('fireworks');
-const ctx=canvas.getContext('2d');
-let particles=[];
-let fireworksRunning=false;
-
-function resizeCanvas(){
-  canvas.width=window.innerWidth;
-  canvas.height=window.innerHeight;
-}
-resizeCanvas();
-window.addEventListener('resize',resizeCanvas);
-
-function burst(){
-  const x=Math.random()*canvas.width;
-  const y=Math.random()*canvas.height*.65;
-  const colors=['#ff4f91','#ffe066','#70e1ff','#c78bff','#ffffff','#7dffb3'];
-  for(let i=0;i<65;i++){
-    const angle=Math.PI*2*i/65;
-    const speed=Math.random()*4+1;
-    particles.push({
-      x,y,
-      vx:Math.cos(angle)*speed,
-      vy:Math.sin(angle)*speed,
-      life:70,
-      color:colors[Math.floor(Math.random()*colors.length)]
-    });
-  }
-}
-function animateFireworks(){
-  if(!fireworksRunning)return;
-  ctx.clearRect(0,0,canvas.width,canvas.height);
-  if(Math.random()<.07)burst();
-  particles.forEach((p,i)=>{
-    p.x+=p.vx;
-    p.y+=p.vy;
-    p.vy+=.025;
-    p.life--;
-    ctx.globalAlpha=Math.max(0,p.life/70);
-    ctx.fillStyle=p.color;
-    ctx.beginPath();
-    ctx.arc(p.x,p.y,3,0,Math.PI*2);
-    ctx.fill();
-    if(p.life<=0)particles.splice(i,1);
-  });
-  ctx.globalAlpha=1;
-  requestAnimationFrame(animateFireworks);
-}
-
-function startCelebration(){
-  showPage('firePage');
-  fireworksRunning=true;
-  burst();
-  animateFireworks();
-  setTimeout(()=>{
-    fireworksRunning=false;
-    ctx.clearRect(0,0,canvas.width,canvas.height);
-    document.getElementById('continueFire').style.display='inline-block';
-  },5000);
-}
-
-// BLOW CANDLES
-let candlesBlown=false;
-function blowCandles(){
-  if(candlesBlown)return;
-  candlesBlown=true;
-  document.querySelectorAll('.flame').forEach(f=>{
-    const smoke=document.createElement('div');
-    smoke.className='smoke';
-    smoke.style.left=f.offsetLeft+'px';
-    smoke.style.top=f.offsetTop+'px';
-    document.getElementById('cake').appendChild(smoke);
-    f.style.display='none';
-  });
-  document.getElementById('blowButton').style.display='none';
-  document.getElementById('cutButton').style.display='inline-block';
-}
-
-// CUT CAKE
-let cakeCut=false;
-function cutCake(){
-  if(cakeCut)return;
-  cakeCut=true;
-  document.getElementById('cakeStage').classList.add('cut');
-  document.getElementById('cutButton').style.display='none';
-  setTimeout(()=>{
-    document.getElementById('openFinal').style.display='inline-block';
-  },2200);
-}
-</script>
+  <script src="script.js"></script>
 </body>
 </html>
