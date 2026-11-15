@@ -1,1 +1,196 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Happy Birthday Ranjana ❤️</title>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Georgia,serif;background:#fff0f6;color:#76234d;overflow:hidden}
+.page{display:none;height:100vh;height:100dvh;width:100%;padding:20px 16px;align-items:center;justify-content:center;flex-direction:column;text-align:center;position:relative;overflow-y:auto}
+.page.active{display:flex;animation:fade .7s ease}
+@keyframes fade{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:scale(1)}}
+h1{font-size:clamp(34px,9vw,55px);color:#df3988;margin:12px 0;text-shadow:2px 3px 12px #ffc0dc}
+h2{font-size:26px;margin:12px}
+p{font-size:18px;line-height:1.65;margin:9px auto;max-width:480px}
+button{border:0;border-radius:40px;padding:15px 25px;margin:13px;background:linear-gradient(135deg,#ff65a5,#ce2677);color:white;font-size:16px;font-weight:bold;box-shadow:0 5px 18px #d77da8;cursor:pointer;z-index:5}
+button:active{transform:scale(.94)}
+.photo{width:min(75vw,290px);height:min(36vh,280px);object-fit:cover;border:6px solid white;border-radius:20px;box-shadow:0 7px 25px #d88aaf;margin:12px auto;background:#ffd6e8}
+#page1{background:linear-gradient(145deg,#fff9fc,#ffc7df)}
+#page2{background:linear-gradient(145deg,#190c37,#76205d,#260d3c);color:white}
+#page2 h1{color:#ffc5e1}
+#page3{background:linear-gradient(145deg,#fff0f6,#ffd3e6)}
+#page4{background:linear-gradient(145deg,#fff9fc,#ffdfec)}
+#page5{background:radial-gradient(circle,#ffacd0,#d62c81,#500d39);color:white}
+#page5 h1{color:white}
+.petal{position:fixed;top:-40px;z-index:10;pointer-events:none;animation:fall linear forwards}
+@keyframes fall{to{transform:translateY(110vh) rotate(700deg);opacity:0}}
+.burst{position:fixed;width:8px;height:8px;border-radius:50%;z-index:3;pointer-events:none;animation:burst 1.2s ease-out forwards;box-shadow:0 -35px #ffea70,25px -25px #ff66a3,35px 0 white,25px 25px #ffea70,0 35px #ff66a3,-25px 25px white,-35px 0 #ffea70,-25px -25px #ff66a3}
+@keyframes burst{from{transform:scale(.1);opacity:1}to{transform:scale(2.4);opacity:0}}
+.photo-row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.photo-row .photo{width:min(42vw,180px);height:190px}
+.cake-area{width:260px;height:220px;position:relative;margin:15px auto}
+.cake-base{position:absolute;bottom:15px;left:25px;width:210px;height:110px;border-radius:12px 12px 23px 23px;background:linear-gradient(#ff9ac3 0 25%,#ad4c7a 26%);box-shadow:0 10px #813257}
+.cake-base:before{content:"";position:absolute;top:-17px;left:0;width:210px;height:34px;border-radius:50%;background:#fff0f7;border:3px solid #ffb7d4}
+.cake-base:after{content:"♥  ♥  ♥";position:absolute;top:45px;left:55px;color:white;font-size:25px}
+.candles{position:absolute;bottom:125px;left:38px;width:184px;display:flex;justify-content:space-between;z-index:3}
+.candle{width:13px;height:54px;border-radius:3px;background:repeating-linear-gradient(45deg,white,white 5px,#ff5b9e 5px,#ff5b9e 10px);position:relative}
+.flame{position:absolute;left:-3px;top:-27px;width:19px;height:27px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);background:radial-gradient(circle at 55% 70%,#fff9ae,#ff9c20 65%,transparent 70%);animation:flicker .3s infinite alternate}
+@keyframes flicker{to{transform:rotate(-38deg) scale(1.2)}}
+.cut .cake-base{transform:rotate(-8deg) translateX(24px);clip-path:polygon(0 0,100% 0,100% 100%,35% 100%,0 50%);transition:1s}
+.heart{position:fixed;bottom:-35px;animation:float 5s linear forwards;pointer-events:none;z-index:2}
+@keyframes float{to{transform:translateY(-110vh) rotate(45deg);opacity:0}}
+</style>
+</head>
+
+<body>
+
+<!-- SCREEN 1 -->
+<section class="page active" id="page1">
+<h1>HI RANJANA! 💗</h1>
+<p>Someone has prepared a little surprise just for you...</p>
+<img class="photo" src="images/ranjana-1.jpg" alt="Ranjana">
+<p>Are you ready? 🌸</p>
+<button onclick="openSurprise()">OPEN YOUR SURPRISE 🎁</button>
+</section>
+
+<!-- SCREEN 2 -->
+<section class="page" id="page2">
+<h1>🎆 SURPRISE!!! 🎆</h1>
+<p>Today the whole world celebrates YOU!</p>
+<p>Flowers, happiness and lots of love! 🌸💖</p>
+<button onclick="goTo(3)">LET'S SEE THE CAKE →</button>
+</section>
+
+<!-- SCREEN 3 -->
+<section class="page" id="page3">
+<h1>YOUR BIRTHDAY CAKE 🎂</h1>
+<p>Make a wish and blow out all seven candles!</p>
+
+<div class="cake-area" id="cakeArea">
+<div class="candles" id="candles">
+<div class="candle"><div class="flame"></div></div>
+<div class="candle"><div class="flame"></div></div>
+<div class="candle"><div class="flame"></div></div>
+<div class="candle"><div class="flame"></div></div>
+<div class="candle"><div class="flame"></div></div>
+<div class="candle"><div class="flame"></div></div>
+<div class="candle"><div class="flame"></div></div>
+</div>
+<div class="cake-base"></div>
+</div>
+
+<button id="blowBtn" onclick="blowCandles()">BLOW OUT THE CANDLES 🕯️</button>
+<button id="cutBtn" onclick="cutCake()" style="display:none">CUT THE CAKE 🍰</button>
+<p id="cakeMessage"></p>
+<button id="cakeNext" onclick="goTo(4)" style="display:none">NEXT ❤️</button>
+</section>
+
+<!-- SCREEN 4 -->
+<section class="page" id="page4">
+<h1>A SPECIAL WISH 💕</h1>
+<div class="photo-row">
+<img class="photo" src="images/ranjana-2.jpg" alt="Memory one">
+<img class="photo" src="images/ranjana-3.jpg" alt="Memory two">
+</div>
+<h2>Dear Ranjana ❤️</h2>
+<p>May your birthday bring endless happiness, beautiful memories and countless reasons to smile.</p>
+<p>May every dream in your heart come true. Keep shining and always stay happy! 🌷</p>
+<button onclick="goTo(5)">ONE LAST SURPRISE 🎁</button>
+</section>
+
+<!-- SCREEN 5 -->
+<section class="page" id="page5">
+<h1>🎉 HAPPY BIRTHDAY 🎉</h1>
+<h2>RANJANA! ❤️</h2>
+<p>Once again, wishing you endless happiness, love and beautiful moments.</p>
+<div style="font-size:65px;margin:20px">🎂💖🎆🌸</div>
+<h1>HAPPY BIRTHDAY, RANJANA!</h1>
+<p>May all your dreams come true! 💗</p>
+<p>Made with love, just for you.</p>
+</section>
+
+<script>
+function goTo(n){
+ document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+ document.getElementById("page"+n).classList.add("active");
+ if(n===5) finalShow();
+}
+
+function openSurprise(){
+ goTo(2);
+ celebration();
+}
+
+function petal(){
+ const e=document.createElement("div");
+ e.className="petal";
+ e.textContent=["🌸","🌷","🌺","🌼","💮","🌹"][Math.floor(Math.random()*6)];
+ e.style.left=Math.random()*100+"vw";
+ e.style.fontSize=(18+Math.random()*24)+"px";
+ e.style.animationDuration=(4+Math.random()*5)+"s";
+ document.body.appendChild(e);
+ setTimeout(()=>e.remove(),9500);
+}
+
+function firework(){
+ const e=document.createElement("div");
+ e.className="burst";
+ e.style.left=(8+Math.random()*84)+"vw";
+ e.style.top=(10+Math.random()*65)+"vh";
+ document.body.appendChild(e);
+ setTimeout(()=>e.remove(),1300);
+}
+
+let celebrationTimer;
+
+function celebration(){
+ clearInterval(celebrationTimer);
+ for(let i=0;i<25;i++){
+  setTimeout(petal,i*100);
+  setTimeout(firework,i*140);
+ }
+ celebrationTimer=setInterval(()=>{
+  petal();
+  firework();
+ },350);
+}
+
+function blowCandles(){
+ document.querySelectorAll(".flame").forEach(f=>f.style.display="none");
+ document.getElementById("blowBtn").style.display="none";
+ document.getElementById("cutBtn").style.display="inline-block";
+ document.getElementById("cakeMessage").textContent="Wish made! Now cut your cake! 💗";
+ for(let i=0;i<12;i++)setTimeout(petal,i*100);
+}
+
+function cutCake(){
+ document.getElementById("cakeArea").classList.add("cut");
+ document.getElementById("cutBtn").style.display="none";
+ document.getElementById("cakeMessage").textContent="The cake is cut! Enjoy your sweet day! 🍰";
+ document.getElementById("cakeNext").style.display="inline-block";
+}
+
+function heart(){
+ const e=document.createElement("div");
+ e.className="heart";
+ e.textContent=["💗","💕","💖","❤️"][Math.floor(Math.random()*4)];
+ e.style.left=Math.random()*100+"vw";
+ e.style.fontSize=(18+Math.random()*24)+"px";
+ document.body.appendChild(e);
+ setTimeout(()=>e.remove(),5500);
+}
+setInterval(heart,750);
+
+function finalShow(){
+ celebration();
+ for(let i=0;i<35;i++){
+  setTimeout(firework,i*140);
+  setTimeout(petal,i*100);
+ }
+}
+</script>
+</body>
+</html>
